@@ -9,4 +9,8 @@ public class InputView {
     public static String input() {
         return Console.readLine();
     }
+
+    public static void inputViewDate() {
+        System.out.println(EXPECTED_DATE);
+    }
 }
