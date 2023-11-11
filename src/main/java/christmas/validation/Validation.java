@@ -3,6 +3,10 @@ package christmas.validation;
 import christmas.configuration.MenuType;
 import christmas.view.ErrorMessage;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class Validation {
     private final static String REST = ",";
     private final static String DASH = "-";
@@ -72,6 +76,21 @@ public class Validation {
             if (Integer.parseInt(element[COUNT_INDEX]) > 20 || Integer.parseInt(element[COUNT_INDEX]) <= 0) {
                 ErrorMessage.inputMenuError();
                 throw new IllegalArgumentException();
+            }
+        }
+    }
+
+    public static void validateDuplicationElementFood(String[] selectFood) {
+        List<String> foodOrder = new ArrayList<>();
+
+        for (String item : selectFood) {
+            String[] element = item.split(DASH);
+            if (foodOrder.contains(element[MENU_INDEX])){
+                ErrorMessage.inputMenuError();
+                throw new IllegalArgumentException();
+            }
+            if (!foodOrder.contains(element[MENU_INDEX])) {
+                foodOrder.add(element[MENU_INDEX]);
             }
         }
     }
