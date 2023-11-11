@@ -1,5 +1,7 @@
 package christmas.util;
 
+import christmas.validation.Validation;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -9,6 +11,14 @@ public class Utils {
     private static final String DASH = "-";
     private static final int MENU_INDEX = 0;
     private static final int COUNT_INDEX = 1;
+
+    public static int stringToInteger(String userInput) {
+        Validation.validateEmptyInputDate(userInput);
+        Validation.validateStringToInteger(userInput);
+        Validation.validateRangeDate(userInput);
+
+        return Integer.parseInt(userInput);
+    }
 
 
     public static Map<String, Integer> stringToMap(String userInput) {
