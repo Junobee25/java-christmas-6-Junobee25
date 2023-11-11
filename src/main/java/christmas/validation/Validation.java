@@ -1,10 +1,13 @@
 package christmas.validation;
 
+import christmas.configuration.MenuType;
 import christmas.view.ErrorMessage;
 
 public class Validation {
     private final static String REST = ",";
     private final static String DASH = "-";
+    private static final int MENU_INDEX = 0;
+    private static final int COUNT_INDEX = 1;
     private final static int ELEMENT_LENGTH = 3;
 
     public static void validateEmptyInput(String userInput) {
@@ -45,6 +48,17 @@ public class Validation {
         for (String item : selectFoods) {
             String[] element = item.split(DASH);
             if (element.length != ELEMENT_LENGTH) {
+                ErrorMessage.inputMenuError();
+                throw new IllegalArgumentException();
+            }
+        }
+    }
+
+    public static void validateElementFood(String[] selectFood) {
+        for (String item : selectFood) {
+            String[] element = item.split(DASH);
+            String menu = element[MENU_INDEX];
+            if (!MenuType.MENU.getMenuList().contains(menu)) {
                 ErrorMessage.inputMenuError();
                 throw new IllegalArgumentException();
             }
