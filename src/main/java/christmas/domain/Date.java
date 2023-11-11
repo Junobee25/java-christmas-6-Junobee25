@@ -6,4 +6,8 @@ public class Date {
     public Date(int date) {
         this.date = date;
     }
+
+    public int getDate() {
+        return this.date;
+    }
 }
