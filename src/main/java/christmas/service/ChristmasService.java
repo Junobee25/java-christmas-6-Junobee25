@@ -12,36 +12,79 @@ import java.util.Map;
 public class ChristmasService {
 
     public int calculateTotalPurchaseAmount(Map<String, Integer> order) {
-        int appetizerPurchaseAmount = 0;
-        int mainPurchaseAmount = 0;
-        int dessertPurchaseAmount = 0;
-
-        for (AppetizerType appetizerType : AppetizerType.values()) {
-            for (Map.Entry<String, Integer> menuType : order.entrySet()) {
-                if (appetizerType.getMenuName().equals(menuType.getKey())) {
-                    appetizerPurchaseAmount += appetizerType.getPrice() * menuType.getValue();
-                }
-            }
-        }
-
-        for (MainType mainType : MainType.values()) {
-            for (Map.Entry<String, Integer> menuType : order.entrySet()) {
-                if (mainType.getMenuName().equals(menuType.getKey())) {
-                    mainPurchaseAmount += mainType.getPrice() * menuType.getValue();
-                }
-            }
-        }
-
-        for (DessertType dessertType : DessertType.values()) {
-            for (Map.Entry<String, Integer> menuType : order.entrySet()) {
-                if (dessertType.getMenuName().equals(menuType.getKey())) {
-                    dessertPurchaseAmount += dessertType.getPrice() * menuType.getValue();
-                }
-            }
-        }
+        int appetizerPurchaseAmount = totalAppetizerPurchaseAmount(order);
+        int mainPurchaseAmount = totalMainPurchaseAmount(order);
+        int dessertPurchaseAmount = totalDessertPurchaseAmount(order);
 
         return appetizerPurchaseAmount + mainPurchaseAmount + dessertPurchaseAmount;
 
+    }
+
+    private int totalAppetizerPurchaseAmount(Map<String, Integer> order) {
+        int appetizerPurchaseAmount = 0;
+
+        for (AppetizerType appetizerType : AppetizerType.values()) {
+            appetizerPurchaseAmount += calculateAppetizerPurchaseAmount(appetizerType, order);
+        }
+
+        return appetizerPurchaseAmount;
+    }
+
+    private int totalMainPurchaseAmount(Map<String, Integer> order) {
+        int mainPurchaseAmount = 0;
+
+        for (MainType mainType : MainType.values()) {
+            mainPurchaseAmount += calculateMainPurchaseAmount(mainType, order);
+        }
+
+        return mainPurchaseAmount;
+    }
+
+    private int totalDessertPurchaseAmount(Map<String, Integer> order) {
+        int dessertPurchaseAmount = 0;
+
+        for (DessertType dessertType : DessertType.values()) {
+            dessertPurchaseAmount += calculateDessertPurchaseAmount(dessertType, order);
+
+        }
+
+        return dessertPurchaseAmount;
+    }
+
+    private int calculateAppetizerPurchaseAmount(AppetizerType appetizerType, Map<String, Integer> order) {
+        int appetizerPurchaseAmount = 0;
+
+        for (Map.Entry<String, Integer> menuType : order.entrySet()) {
+            if (appetizerType.getMenuName().equals(menuType.getKey())) {
+                appetizerPurchaseAmount += appetizerType.getPrice() * menuType.getValue();
+            }
+        }
+
+        return appetizerPurchaseAmount;
+    }
+
+    private int calculateMainPurchaseAmount(MainType mainType, Map<String, Integer> order) {
+        int mainPurchaseAmount = 0;
+
+        for (Map.Entry<String, Integer> menuType : order.entrySet()) {
+            if (mainType.getMenuName().equals(menuType.getKey())) {
+                mainPurchaseAmount += mainType.getPrice() * menuType.getValue();
+            }
+        }
+
+        return mainPurchaseAmount;
+    }
+
+    private int calculateDessertPurchaseAmount(DessertType dessertType, Map<String, Integer> order) {
+        int dessertPurchaseAmount = 0;
+
+        for (Map.Entry<String, Integer> menuType : order.entrySet()) {
+            if (dessertType.getMenuName().equals(menuType.getKey())) {
+                dessertPurchaseAmount += dessertType.getPrice() * menuType.getValue();
+            }
+        }
+
+        return dessertPurchaseAmount;
     }
 
     public int calculateTotalDiscount(int currentDate, Map<String, Integer> order) {
@@ -65,17 +108,6 @@ public class ChristmasService {
         return dessertDiscount;
     }
 
-    private int calculateDessertDiscount(Map.Entry<String, Integer> menuType) {
-        int dessertDiscount = 0;
-        for (DessertType dessertType : DessertType.values()) {
-            if (menuType.getKey().contains(dessertType.getMenuName())) {
-                dessertDiscount += DiscountType.WEEKDAY.calculate(dessertType.getPrice());
-            }
-        }
-        return dessertDiscount;
-
-    }
-
     private int totalMainDiscount(int currentDate, Map<String, Integer> order) {
         int mainDiscount = 0;
         List<DiscountType> discountTypes = findDiscountType(currentDate);
@@ -86,16 +118,6 @@ public class ChristmasService {
             }
         }
 
-        return mainDiscount;
-    }
-
-    private int calculatorMainDiscount(Map.Entry<String, Integer> menuType) {
-        int mainDiscount = 0;
-        for (MainType mainType : MainType.values()) {
-            if (menuType.getKey().contains(mainType.getMenuName())) {
-                mainDiscount += mainType.getPrice() - DiscountType.WEEKEND.calculate(mainType.getPrice());
-            }
-        }
         return mainDiscount;
     }
 
@@ -110,6 +132,27 @@ public class ChristmasService {
         return christmasDiscount;
     }
 
+    private int calculateDessertDiscount(Map.Entry<String, Integer> menuType) {
+        int dessertDiscount = 0;
+        for (DessertType dessertType : DessertType.values()) {
+            if (menuType.getKey().contains(dessertType.getMenuName())) {
+                dessertDiscount += DiscountType.WEEKDAY.calculate(dessertType.getPrice());
+            }
+        }
+        return dessertDiscount;
+
+    }
+
+
+    private int calculatorMainDiscount(Map.Entry<String, Integer> menuType) {
+        int mainDiscount = 0;
+        for (MainType mainType : MainType.values()) {
+            if (menuType.getKey().contains(mainType.getMenuName())) {
+                mainDiscount += mainType.getPrice() - DiscountType.WEEKEND.calculate(mainType.getPrice());
+            }
+        }
+        return mainDiscount;
+    }
 
     private static List<DiscountType> findDiscountType(int currentDate) {
         List<DiscountType> discountTypes = new ArrayList<>();
