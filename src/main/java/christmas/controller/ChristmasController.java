@@ -18,6 +18,7 @@ public class ChristmasController {
 
     public void decemberPromotion() {
         int date = inputDate();
+        Map<String, Integer> order = inputOrder();
     }
 
     private int inputDate() {
