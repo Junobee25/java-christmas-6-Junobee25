@@ -1,5 +1,6 @@
 package christmas.service;
 
+import christmas.configuration.AppetizerType;
 import christmas.configuration.DessertType;
 import christmas.configuration.DiscountType;
 import christmas.configuration.MainType;
@@ -9,6 +10,39 @@ import java.util.List;
 import java.util.Map;
 
 public class ChristmasService {
+
+    public int calculateTotalPurchaseAmount(Map<String, Integer> order) {
+        int appetizerPurchaseAmount = 0;
+        int mainPurchaseAmount = 0;
+        int dessertPurchaseAmount = 0;
+
+        for (AppetizerType appetizerType : AppetizerType.values()) {
+            for (Map.Entry<String, Integer> menuType : order.entrySet()) {
+                if (appetizerType.getMenuName().equals(menuType.getKey())) {
+                    appetizerPurchaseAmount += appetizerType.getPrice() * menuType.getValue();
+                }
+            }
+        }
+
+        for (MainType mainType : MainType.values()) {
+            for (Map.Entry<String, Integer> menuType : order.entrySet()) {
+                if (mainType.getMenuName().equals(menuType.getKey())) {
+                    mainPurchaseAmount += mainType.getPrice() * menuType.getValue();
+                }
+            }
+        }
+
+        for (DessertType dessertType : DessertType.values()) {
+            for (Map.Entry<String, Integer> menuType : order.entrySet()) {
+                if (dessertType.getMenuName().equals(menuType.getKey())) {
+                    dessertPurchaseAmount += dessertType.getPrice() * menuType.getValue();
+                }
+            }
+        }
+
+        return appetizerPurchaseAmount + mainPurchaseAmount + dessertPurchaseAmount;
+
+    }
 
     public int calculateTotalDiscount(int currentDate, Map<String, Integer> order) {
         int dessertDiscount = totalDessertDiscount(currentDate, order);
