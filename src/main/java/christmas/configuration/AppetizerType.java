@@ -1,7 +1,5 @@
 package christmas.configuration;
 
-import java.util.Arrays;
-
 public enum AppetizerType {
     MUSHROOM_SOUP("양송이수프", 6000),
     TAPAS("타파스", 5000),
@@ -15,7 +13,7 @@ public enum AppetizerType {
         this.price = price;
     }
 
-    public String getName() {
+    public String getMenuName() {
         return appetizer;
     }
 
