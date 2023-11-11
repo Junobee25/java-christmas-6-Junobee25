@@ -13,4 +13,8 @@ public class InputView {
     public static void inputViewDate() {
         System.out.println(EXPECTED_DATE);
     }
+
+    public static void inputViewOrder() {
+        System.out.println(SELECT_MENU);
+    }
 }
