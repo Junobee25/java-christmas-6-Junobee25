@@ -17,6 +17,8 @@ public class OutputView {
     private final static String DECEMBER_EVENT_BADGE = "<12월 이벤트 배지>";
     private final static String DECEMBER_EVENT_BADGE_DETAIL = "%s";
 
-
+    public static void outputViewWelcome() {
+        System.out.println(WELCOME_RESTAURANT);
+    }
 
 }
