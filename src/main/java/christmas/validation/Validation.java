@@ -16,4 +16,13 @@ public class Validation {
             throw new IllegalArgumentException();
         }
     }
+
+    public static void validateRangeDate(String userInput) {
+        int date = Integer.parseInt(userInput);
+
+        if (date < 1 || date > 31) {
+            ErrorMessage.inputDateError();
+            throw new IllegalArgumentException();
+        }
+    }
 }
