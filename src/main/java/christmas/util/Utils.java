@@ -13,7 +13,7 @@ public class Utils {
     private static final int COUNT_INDEX = 1;
 
     public static int stringToInteger(String userInput) {
-        Validation.validateEmptyInputDate(userInput);
+        Validation.validateEmptyInput(userInput);
         Validation.validateStringToInteger(userInput);
         Validation.validateRangeDate(userInput);
 
@@ -25,15 +25,23 @@ public class Utils {
         String[] selectFoods = stringToArray(userInput);
         Map<String, Integer> order = new HashMap<>();
 
+        Validation.validateFoodArrayElement(selectFoods);
+        Validation.validateElementFood(selectFoods);
+        Validation.validateElementCount(selectFoods);
+        Validation.validateDuplicationElementFood(selectFoods);
+
         for (String item : selectFoods) {
             order.put(item.split(DASH)[MENU_INDEX], Integer.parseInt(item.split(DASH)[COUNT_INDEX]));
         }
+
         return order;
     }
 
     private static String[] stringToArray(String userInput) {
-        String[] selectFoods = userInput.split(COMMAS);
+        Validation.validateEmptyInput(userInput);
+        Validation.validateInputString(userInput);
         // validation
-        return selectFoods;
+        return userInput.split(COMMAS);
     }
+
 }
