@@ -24,7 +24,7 @@ public class ChristmasService {
 
         if (discountTypes.contains(DiscountType.WEEKDAY)) {
             for (Map.Entry<String, Integer> menuType : order.entrySet()) {
-                dessertDiscount = calculateDessertDiscount(menuType);
+                dessertDiscount += calculateDessertDiscount(menuType);
             }
         }
 
@@ -48,7 +48,7 @@ public class ChristmasService {
 
         if (discountTypes.contains(DiscountType.WEEKEND)) {
             for (Map.Entry<String, Integer> menuType : order.entrySet()) {
-                mainDiscount = calculatorMainDiscount(menuType);
+                mainDiscount += calculatorMainDiscount(menuType);
             }
         }
 
