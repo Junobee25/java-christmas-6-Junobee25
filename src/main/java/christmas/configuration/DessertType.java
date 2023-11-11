@@ -12,7 +12,7 @@ public enum DessertType {
         this.price = price;
     }
 
-    public String getName() {
+    public String getMenuName() {
         return dessert;
     }
 

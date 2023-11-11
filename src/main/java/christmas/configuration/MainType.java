@@ -14,7 +14,7 @@ public enum MainType {
         this.price = price;
     }
 
-    public String getName() {
+    public String getMenuName() {
         return mainMenu;
     }
 
