@@ -11,4 +11,8 @@ public enum MenuType {
     MenuType(List<String> menu) {
         this.menu = menu;
     }
+
+    public List<String> getMenuList() {
+        return menu;
+    }
 }
