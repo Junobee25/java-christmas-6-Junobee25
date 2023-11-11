@@ -3,7 +3,10 @@ package christmas.validation;
 import christmas.view.ErrorMessage;
 
 public class Validation {
-    public static void validateEmptyInputDate(String userInput) {
+    private final static String REST = ",";
+    private final static String DASH = "-";
+
+    public static void validateEmptyInput(String userInput) {
         if (userInput.length() == 0) {
             ErrorMessage.inputDateError();
             throw new IllegalArgumentException();
@@ -23,6 +26,17 @@ public class Validation {
         if (date < 1 || date > 31) {
             ErrorMessage.inputDateError();
             throw new IllegalArgumentException();
+        }
+    }
+
+    public static void validateInputOrder(String userInput) {
+        String[] selectFoods = userInput.split(REST);
+
+        for (String item : selectFoods) {
+            if (!item.trim().contains(DASH)) {
+                ErrorMessage.inputMenuError();
+                throw new IllegalArgumentException();
+            }
         }
     }
 }
