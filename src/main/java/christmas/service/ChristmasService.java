@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Map;
 
 public class ChristmasService {
+    private static final int GIVE_WAY_DISCOUNT = 25000;
+    private static final int ONE_HUNDRED_TWELVE_THOUSAND = 120000;
 
     public int calculateTotalPurchaseAmount(Map<String, Integer> order) {
         int appetizerPurchaseAmount = totalAppetizerPurchaseAmount(order);
@@ -110,6 +112,10 @@ public class ChristmasService {
         int mainDiscount = totalMainDiscount(currentDate, order);
         int christmasDiscount = totalChristmasDiscount(currentDate);
 
+        if (calculateTotalPurchaseAmount(order) > ONE_HUNDRED_TWELVE_THOUSAND) {
+            return dessertDiscount + mainDiscount + christmasDiscount + GIVE_WAY_DISCOUNT;
+        }
+
         return dessertDiscount + mainDiscount + christmasDiscount;
     }
 
@@ -149,6 +155,13 @@ public class ChristmasService {
 
         return christmasDiscount;
     }
+    
+    public int totalGiveWayDiscount(int totalPrice) {
+        if (totalPrice > 120000) {
+            return 25000;
+        }
+        return 0;
+    }
 
     private int calculateDessertDiscount(Map.Entry<String, Integer> menuType) {
         int dessertDiscount = 0;
@@ -181,12 +194,5 @@ public class ChristmasService {
             }
         }
         return discountTypes;
-    }
-
-    public int calculateGiveWayDiscount(int totalPrice) {
-        if (totalPrice > 120000) {
-            return 120000;
-        }
-        return 0;
     }
 }
