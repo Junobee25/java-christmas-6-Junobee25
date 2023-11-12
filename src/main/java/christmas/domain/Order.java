@@ -11,6 +11,7 @@ public class Order {
 
     public Order(Map<String, Integer> order) {
         validateOnlyBeverage(order);
+        validatePurchaseCount(order);
         this.order = order;
     }
 
@@ -22,6 +23,13 @@ public class Order {
         }
 
         if (menus.contains(MenuType.BEVERAGE) && menus.size() == 1) {
+            ErrorMessage.inputMenuError();
+            throw new IllegalArgumentException();
+        }
+    }
+
+    private void validatePurchaseCount(Map<String, Integer> order) {
+        if (Utils.countPurchaseAmount(order) > 20) {
             ErrorMessage.inputMenuError();
             throw new IllegalArgumentException();
         }
