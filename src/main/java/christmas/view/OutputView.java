@@ -68,28 +68,18 @@ public class OutputView {
         }
     }
 
-    public static void outputViewTotalDiscount() {
+    public static void outputViewTotalDiscount(int discount) {
         System.out.println(TOTAL_BENEFIT_DISCOUNT);
+        System.out.printf(TOTAL_BENEFIT_DISCOUNT_DETAIL, Utils.formatPriceToWonType(discount));
     }
 
-    public static void outputViewTotalDetailDiscount(int discount) {
-        System.out.printf(TOTAL_BENEFIT_DISCOUNT_DETAIL, discount);
-    }
-
-    public static void outputViewEstimatedPayment() {
+    public static void outputViewEstimatedPayment(int totalPrice) {
         System.out.println(ESTIMATED_PAYMENT_AMOUNT_AFTER_DISCOUNT);
+        System.out.printf(ESTIMATED_PAYMENT_AMOUNT_AFTER_DISCOUNT_DETAIL,  Utils.formatPriceToWonType(totalPrice));
     }
 
-    public static void outputViewEstimatedDetailPayment(int totalPrice) {
-        System.out.printf(ESTIMATED_PAYMENT_AMOUNT_AFTER_DISCOUNT_DETAIL, totalPrice);
-    }
-
-    public static void outputViewEventBadge() {
+    public static void outputViewEventBadge(String badge) {
         System.out.println(DECEMBER_EVENT_BADGE);
-    }
-
-    public static void outputViewDetailEventBadge(String badge) {
         System.out.printf(DECEMBER_EVENT_BADGE_DETAIL, badge);
     }
-
 }
