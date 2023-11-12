@@ -1,8 +1,8 @@
 package christmas.service;
 
 import christmas.configuration.*;
+import christmas.util.Utils;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -28,7 +28,6 @@ public class ChristmasService {
         for (AppetizerType appetizerType : AppetizerType.values()) {
             appetizerPurchaseAmount += calculateAppetizerPurchaseAmount(appetizerType, order);
         }
-
         return appetizerPurchaseAmount;
     }
 
@@ -38,7 +37,6 @@ public class ChristmasService {
         for (MainType mainType : MainType.values()) {
             mainPurchaseAmount += calculateMainPurchaseAmount(mainType, order);
         }
-
         return mainPurchaseAmount;
     }
 
@@ -58,7 +56,6 @@ public class ChristmasService {
         for (BeverageType beverageType : BeverageType.values()) {
             beveragePurchaseAmount += calculateBeveragePurchaseAmount(beverageType, order);
         }
-
         return beveragePurchaseAmount;
     }
 
@@ -70,7 +67,6 @@ public class ChristmasService {
                 appetizerPurchaseAmount += appetizerType.getPrice() * menuType.getValue();
             }
         }
-
         return appetizerPurchaseAmount;
     }
 
@@ -82,7 +78,6 @@ public class ChristmasService {
                 mainPurchaseAmount += mainType.getPrice() * menuType.getValue();
             }
         }
-
         return mainPurchaseAmount;
     }
 
@@ -94,7 +89,6 @@ public class ChristmasService {
                 dessertPurchaseAmount += dessertType.getPrice() * menuType.getValue();
             }
         }
-
         return dessertPurchaseAmount;
     }
 
@@ -117,7 +111,6 @@ public class ChristmasService {
         if (calculateTotalPurchaseAmount(order) > ONE_HUNDRED_TWELVE_THOUSAND) {
             return dessertDiscount + mainDiscount + christmasDiscount + totalSpecialDiscount(currentDate) + GIVE_WAY_DISCOUNT;
         }
-
         return dessertDiscount + mainDiscount + christmasDiscount + totalSpecialDiscount(currentDate);
     }
 
@@ -131,38 +124,35 @@ public class ChristmasService {
 
     public int totalDessertDiscount(int currentDate, Map<String, Integer> order) {
         int dessertDiscount = 0;
-        List<DiscountType> discountTypes = findDiscountType(currentDate);
+        List<DiscountType> discountTypes = Utils.findDiscountType(currentDate);
 
         if (discountTypes.contains(DiscountType.WEEKDAY)) {
             for (Map.Entry<String, Integer> menuType : order.entrySet()) {
                 dessertDiscount += calculateDessertDiscount(menuType);
             }
         }
-
         return dessertDiscount;
     }
 
     public int totalMainDiscount(int currentDate, Map<String, Integer> order) {
         int mainDiscount = 0;
-        List<DiscountType> discountTypes = findDiscountType(currentDate);
+        List<DiscountType> discountTypes = Utils.findDiscountType(currentDate);
 
         if (discountTypes.contains(DiscountType.WEEKEND)) {
             for (Map.Entry<String, Integer> menuType : order.entrySet()) {
                 mainDiscount += calculatorMainDiscount(menuType);
             }
         }
-
         return mainDiscount;
     }
 
     public int totalChristmasDiscount(int currentDate) {
         int christmasDiscount = 0;
-        List<DiscountType> discountTypes = findDiscountType(currentDate);
+        List<DiscountType> discountTypes = Utils.findDiscountType(currentDate);
 
         if (discountTypes.contains(DiscountType.CHRISTMAS)) {
             christmasDiscount += DiscountType.CHRISTMAS.calculate(currentDate);
         }
-
         return christmasDiscount;
     }
 
@@ -200,16 +190,5 @@ public class ChristmasService {
             }
         }
         return mainDiscount;
-    }
-
-    private static List<DiscountType> findDiscountType(int currentDate) {
-        List<DiscountType> discountTypes = new ArrayList<>();
-
-        for (DiscountType type : DiscountType.values()) {
-            if (type.getDates().contains(currentDate)) {
-                discountTypes.add(type);
-            }
-        }
-        return discountTypes;
     }
 }
