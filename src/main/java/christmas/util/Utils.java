@@ -38,7 +38,6 @@ public class Utils {
         for (String item : selectFoods) {
             order.put(item.split(DASH)[MENU_INDEX], Integer.parseInt(item.split(DASH)[COUNT_INDEX]));
         }
-
         return order;
     }
 
