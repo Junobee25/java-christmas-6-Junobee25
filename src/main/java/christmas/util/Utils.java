@@ -54,6 +54,15 @@ public class Utils {
         return formatter.format(price);
     }
 
+    public static int countPurchaseAmount(Map<String, Integer> order) {
+        int amount = 0;
+
+        for (Map.Entry<String, Integer> menu : order.entrySet()) {
+            amount += menu.getValue();
+        }
+        return amount;
+    }
+
     public static List<DiscountType> findDiscountType(int currentDate) {
         List<DiscountType> discountTypes = new ArrayList<>();
 
