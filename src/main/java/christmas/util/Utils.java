@@ -1,10 +1,13 @@
 package christmas.util;
 
+import christmas.configuration.DiscountType;
 import christmas.configuration.MenuType;
 import christmas.validation.Validation;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Utils {
@@ -49,6 +52,17 @@ public class Utils {
     public static String formatPriceToWonType(int price) {
         DecimalFormat formatter = new DecimalFormat("###,###");
         return formatter.format(price);
+    }
+
+    public static List<DiscountType> findDiscountType(int currentDate) {
+        List<DiscountType> discountTypes = new ArrayList<>();
+
+        for (DiscountType type : DiscountType.values()) {
+            if (type.getDates().contains(currentDate)) {
+                discountTypes.add(type);
+            }
+        }
+        return discountTypes;
     }
 
     public static MenuType findMenuType(MenuType menuType, Map<String, Integer> order) {
