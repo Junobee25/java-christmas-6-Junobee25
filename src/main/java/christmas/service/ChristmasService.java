@@ -1,9 +1,6 @@
 package christmas.service;
 
-import christmas.configuration.AppetizerType;
-import christmas.configuration.DessertType;
-import christmas.configuration.DiscountType;
-import christmas.configuration.MainType;
+import christmas.configuration.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,8 +12,9 @@ public class ChristmasService {
         int appetizerPurchaseAmount = totalAppetizerPurchaseAmount(order);
         int mainPurchaseAmount = totalMainPurchaseAmount(order);
         int dessertPurchaseAmount = totalDessertPurchaseAmount(order);
+        int beveragePurchaseAmount = totalBeveragePurchaseAmount(order);
 
-        return appetizerPurchaseAmount + mainPurchaseAmount + dessertPurchaseAmount;
+        return appetizerPurchaseAmount + mainPurchaseAmount + dessertPurchaseAmount + beveragePurchaseAmount;
 
     }
 
@@ -47,8 +45,17 @@ public class ChristmasService {
             dessertPurchaseAmount += calculateDessertPurchaseAmount(dessertType, order);
 
         }
-
         return dessertPurchaseAmount;
+    }
+
+    private int totalBeveragePurchaseAmount(Map<String, Integer> order) {
+        int beveragePurchaseAmount = 0;
+
+        for (BeverageType beverageType : BeverageType.values()) {
+            beveragePurchaseAmount += calculateBeveragePurchaseAmount(beverageType, order);
+        }
+
+        return beveragePurchaseAmount;
     }
 
     private int calculateAppetizerPurchaseAmount(AppetizerType appetizerType, Map<String, Integer> order) {
@@ -85,6 +92,17 @@ public class ChristmasService {
         }
 
         return dessertPurchaseAmount;
+    }
+
+    private int calculateBeveragePurchaseAmount(BeverageType beverageType, Map<String, Integer> order) {
+        int beveragePurchaseAmount = 0;
+
+        for (Map.Entry<String, Integer> menuType : order.entrySet()) {
+            if (beverageType.getMenuName().equals(menuType.getKey())) {
+                beveragePurchaseAmount += beverageType.getPrice() * menuType.getValue();
+            }
+        }
+        return beveragePurchaseAmount;
     }
 
     public int calculateTotalDiscount(int currentDate, Map<String, Integer> order) {
