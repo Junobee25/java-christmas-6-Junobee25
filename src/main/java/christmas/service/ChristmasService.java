@@ -183,4 +183,10 @@ public class ChristmasService {
         return discountTypes;
     }
 
+    public int calculateGiveWayDiscount(int totalPrice) {
+        if (totalPrice > 120000) {
+            return 120000;
+        }
+        return 0;
+    }
 }
