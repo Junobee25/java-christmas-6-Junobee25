@@ -2,9 +2,11 @@ package christmas.view;
 
 import org.mockito.internal.matchers.Or;
 
+import java.util.Map;
+
 public class OutputView {
     private final static String WELCOME_RESTAURANT = "안녕하세요! 우테코 식당 12월 이벤트 플래너입니다.";
-    private final static String PREVIEW_EVENT = "12월 %s일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!";
+    private final static String PREVIEW_EVENT = "12월 %s일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!\n";
     private final static String ORDER_MENU = "<주문 메뉴>";
     private final static String DETAIL_ORDER = "%s %d개";
     private final static String ORDER_AMOUNT_BEFORE_DISCOUNT = "<할인 전 총주문 금액>";
@@ -23,16 +25,16 @@ public class OutputView {
         System.out.println(WELCOME_RESTAURANT);
     }
 
-    public static void outputViewPreviewEvent() {
-        System.out.println(PREVIEW_EVENT);
+    public static void outputViewPreviewEvent(int date) {
+        System.out.printf(PREVIEW_EVENT, date);
     }
 
-    public static void outputViewOrderMenu() {
+    public static void outputViewOrderMenu(Map<String, Integer> order) {
         System.out.println(ORDER_MENU);
-    }
 
-    public static void outputViewDetailOrder(String menu, int count) {
-        System.out.printf(DETAIL_ORDER, menu, count);
+        for (Map.Entry<String, Integer> menu : order.entrySet()) {
+            System.out.printf(DETAIL_ORDER, menu.getKey(), menu.getValue());
+        }
     }
 
     public static void outputViewOrderAmount() {
