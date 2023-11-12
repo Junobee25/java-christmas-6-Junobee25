@@ -62,8 +62,10 @@ public class OutputView {
         System.out.println(BENEFIT);
     }
 
-    public static void outputViewDetailBenefit(String event, int discount) {
-        System.out.printf(BENEFIT_DETAIL, event, discount);
+    public static void outputViewBenefitDetail(String event, int discount) {
+        if (discount != 0) {
+            System.out.printf(BENEFIT_DETAIL, event, Utils.formatPriceToWonType(discount));
+        }
     }
 
     public static void outputViewTotalDiscount() {
