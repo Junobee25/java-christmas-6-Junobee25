@@ -1,10 +1,9 @@
 package christmas.validation;
 
-import christmas.configuration.MenuType;
+import christmas.configuration.Menu;
 import christmas.view.ErrorMessage;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Validation {
@@ -72,7 +71,7 @@ public class Validation {
         for (String item : selectFood) {
             String[] element = item.split(DASH);
             String menu = element[MENU_INDEX];
-            if (!MenuType.MENU.getMenuList().contains(menu)) {
+            if (!Menu.MENU.getMenuList().contains(menu)) {
                 System.out.println(3);
                 ErrorMessage.inputMenuError();
                 throw new IllegalArgumentException();
