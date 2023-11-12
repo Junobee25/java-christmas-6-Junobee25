@@ -8,7 +8,9 @@ import java.util.Map;
 
 public class ChristmasService {
     private static final int GIVE_WAY_DISCOUNT = 25000;
+    private static final int SPECIAL_DISCOUNT = 1000;
     private static final int ONE_HUNDRED_TWELVE_THOUSAND = 120000;
+    private static final int ZERO = 0;
 
     public int calculateTotalPurchaseAmount(Map<String, Integer> order) {
         int appetizerPurchaseAmount = totalAppetizerPurchaseAmount(order);
@@ -107,16 +109,24 @@ public class ChristmasService {
         return beveragePurchaseAmount;
     }
 
-    public int calculateTotalDiscount(int currentDate, Map<String, Integer> order) {
+    public int calculateTotalBenefit(int currentDate, Map<String, Integer> order) {
         int dessertDiscount = totalDessertDiscount(currentDate, order);
         int mainDiscount = totalMainDiscount(currentDate, order);
         int christmasDiscount = totalChristmasDiscount(currentDate);
 
         if (calculateTotalPurchaseAmount(order) > ONE_HUNDRED_TWELVE_THOUSAND) {
-            return dessertDiscount + mainDiscount + christmasDiscount + GIVE_WAY_DISCOUNT;
+            return dessertDiscount + mainDiscount + christmasDiscount + totalSpecialDiscount(currentDate) + GIVE_WAY_DISCOUNT;
         }
 
-        return dessertDiscount + mainDiscount + christmasDiscount;
+        return dessertDiscount + mainDiscount + christmasDiscount + totalSpecialDiscount(currentDate);
+    }
+
+    public int calculateTotalDiscount(int currentDate, Map<String, Integer> order) {
+        int dessertDiscount = totalDessertDiscount(currentDate, order);
+        int mainDiscount = totalMainDiscount(currentDate, order);
+        int christmasDiscount = totalChristmasDiscount(currentDate);
+
+        return dessertDiscount + mainDiscount + christmasDiscount + totalSpecialDiscount(currentDate);
     }
 
     public int totalDessertDiscount(int currentDate, Map<String, Integer> order) {
@@ -155,12 +165,19 @@ public class ChristmasService {
 
         return christmasDiscount;
     }
-    
-    public int totalGiveWayDiscount(int totalPrice) {
-        if (totalPrice > 120000) {
-            return 25000;
+
+    public int totalSpecialDiscount(int currentDate) {
+        if (DiscountType.SPECIAL.getDates().contains(currentDate)) {
+            return SPECIAL_DISCOUNT;
         }
-        return 0;
+        return ZERO;
+    }
+
+    public int totalGiveWayBenefit(int totalPrice) {
+        if (totalPrice > ONE_HUNDRED_TWELVE_THOUSAND) {
+            return GIVE_WAY_DISCOUNT;
+        }
+        return ZERO;
     }
 
     private int calculateDessertDiscount(Map.Entry<String, Integer> menuType) {
