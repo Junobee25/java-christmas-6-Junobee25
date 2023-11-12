@@ -1,5 +1,6 @@
 package christmas.util;
 
+import christmas.configuration.MenuType;
 import christmas.validation.Validation;
 
 import java.text.DecimalFormat;
@@ -50,4 +51,12 @@ public class Utils {
         return formatter.format(price);
     }
 
+    public static MenuType findMenuType(MenuType menuType, Map<String, Integer> order) {
+        for (Map.Entry<String, Integer> menu : order.entrySet()) {
+            if (menuType.getMenuList().contains(menu.getKey())) {
+                return menuType;
+            }
+        }
+        return MenuType.DEFAULT;
+    }
 }
