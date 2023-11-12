@@ -2,6 +2,7 @@ package christmas.util;
 
 import christmas.validation.Validation;
 
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -42,6 +43,11 @@ public class Utils {
         Validation.validateInputString(userInput);
         // validation
         return userInput.split(COMMAS);
+    }
+
+    public static String formatPriceToWonType(int price) {
+        DecimalFormat formatter = new DecimalFormat("###,###");
+        return formatter.format(price);
     }
 
 }
