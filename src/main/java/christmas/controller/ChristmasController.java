@@ -1,5 +1,6 @@
 package christmas.controller;
 
+import christmas.configuration.BadgeType;
 import christmas.domain.Date;
 import christmas.domain.Order;
 import christmas.service.ChristmasService;
@@ -10,6 +11,11 @@ import christmas.view.OutputView;
 import java.util.Map;
 
 public class ChristmasController {
+    private static final String CHRISTMAS_EVENT = "크리스마스 디데이 할인";
+    private static final String WEEKDAY_EVENT = "평일 할인";
+    private static final String WEEKEND_EVENT = "주말 할인";
+    private static final String SPECIAL_EVENT = "특별 할인";
+    private static final String GIVE_WAY_EVENT = "증정 이벤트";
     private final ChristmasService christmasService;
 
     public ChristmasController() {
@@ -19,15 +25,25 @@ public class ChristmasController {
     public void decemberPromotion() {
         int date = inputDate();
         Map<String, Integer> order = inputOrder(date);
+        showResult(date, order);
 
-        // 날짜입력 유효성 검증까지 완료 나중에 추가 예외케이스 보강
-        // 주문서입력 유효성 검증까지 완료 나중에 추가 예외케이스 보강
-        // 해야되는 것
-        // 총 주문 금액이 10,000이상부터 이벤트가 적용
-        // 음료만 주문시 주문할 수 없음
-        // 메뉴는 한번에 20개까지만 주문할 수 있음
-        // 할인 전 주문 금액이 120000이상이면 증정이벤트
-        // 혜택이 없을 때 없음 출력
+    }
+
+    private void showResult(int date, Map<String, Integer> order) {
+        int totalPrice = christmasService.calculateTotalPurchaseAmount(order);
+        int totalBenefits = christmasService.calculateTotalBenefit(date, order);
+        int totalDiscount = christmasService.calculateTotalDiscount(date, order);
+        OutputView.outputViewOrderAmount(totalPrice);
+        OutputView.outputViewGiveWayMenu(totalPrice);
+        OutputView.outputViewBenefit();
+        OutputView.outputViewBenefitDetail(CHRISTMAS_EVENT, christmasService.totalChristmasDiscount(date));
+        OutputView.outputViewBenefitDetail(WEEKDAY_EVENT, christmasService.totalDessertDiscount(date, order));
+        OutputView.outputViewBenefitDetail(WEEKEND_EVENT, christmasService.totalMainDiscount(date, order));
+        OutputView.outputViewBenefitDetail(GIVE_WAY_EVENT, christmasService.totalGiveWayBenefit(totalPrice));
+        OutputView.outputViewBenefitDetail(SPECIAL_EVENT, christmasService.totalSpecialDiscount(date));
+        OutputView.outputViewTotalDiscount(totalBenefits);
+        OutputView.outputViewEstimatedPayment(totalPrice - totalDiscount);
+        OutputView.outputViewEventBadge(getBadge(totalBenefits));
     }
 
     private int inputDate() {
@@ -54,10 +70,8 @@ public class ChristmasController {
                 OutputView.outputViewOrderMenu(order.getOrder());
                 return order.getOrder();
             } catch (IllegalArgumentException e) {
-
             }
         }
-
     }
 
     private int getInputDate() {
@@ -67,5 +81,18 @@ public class ChristmasController {
 
     private Map<String, Integer> getInputOrder() {
         return Utils.stringToMap(InputView.input().trim());
+    }
+
+    private String getBadge(int totalBenefit) {
+        if (totalBenefit >= BadgeType.SANTA.getBenefit()) {
+            return BadgeType.SANTA.getBadge();
+        }
+        if (totalBenefit >= BadgeType.TREE.getBenefit()) {
+            return BadgeType.TREE.getBadge();
+        }
+        if (totalBenefit >= BadgeType.STAR.getBenefit()) {
+            return BadgeType.STAR.getBadge();
+        }
+        return BadgeType.NONE_BADGE.getBadge();
     }
 }
