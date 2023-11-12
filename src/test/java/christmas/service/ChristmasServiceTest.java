@@ -18,7 +18,7 @@ class ChristmasServiceTest {
         int date = 1;
 
         //when
-        int result1 = christmasService.calculateTotalDiscount(date, order);
+        int result1 = christmasService.calculateTotalBenefit(date, order);
 
         //then
         org.assertj.core.api.Assertions.assertThat(result1).isEqualTo(5046);
