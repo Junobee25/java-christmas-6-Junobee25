@@ -113,7 +113,7 @@ public class ChristmasService {
         return dessertDiscount + mainDiscount + christmasDiscount;
     }
 
-    private int totalDessertDiscount(int currentDate, Map<String, Integer> order) {
+    public int totalDessertDiscount(int currentDate, Map<String, Integer> order) {
         int dessertDiscount = 0;
         List<DiscountType> discountTypes = findDiscountType(currentDate);
 
@@ -126,7 +126,7 @@ public class ChristmasService {
         return dessertDiscount;
     }
 
-    private int totalMainDiscount(int currentDate, Map<String, Integer> order) {
+    public int totalMainDiscount(int currentDate, Map<String, Integer> order) {
         int mainDiscount = 0;
         List<DiscountType> discountTypes = findDiscountType(currentDate);
 
@@ -139,7 +139,7 @@ public class ChristmasService {
         return mainDiscount;
     }
 
-    private int totalChristmasDiscount(int currentDate) {
+    public int totalChristmasDiscount(int currentDate) {
         int christmasDiscount = 0;
         List<DiscountType> discountTypes = findDiscountType(currentDate);
 
