@@ -1,6 +1,5 @@
 package christmas.controller;
 
-import christmas.configuration.BadgeType;
 import christmas.domain.Date;
 import christmas.domain.Order;
 import christmas.service.ChristmasService;
