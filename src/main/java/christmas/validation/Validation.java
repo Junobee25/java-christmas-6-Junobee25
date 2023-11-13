@@ -1,7 +1,6 @@
 package christmas.validation;
 
 import christmas.configuration.Menu;
-import christmas.util.Utils;
 import christmas.view.ErrorMessage;
 
 import java.util.ArrayList;
