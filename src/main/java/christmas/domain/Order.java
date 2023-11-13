@@ -19,10 +19,10 @@ public class Order {
         HashSet<MenuType> menus = new HashSet<>();
 
         for (MenuType menu : MenuType.values()) {
-            Utils.findMenuType(menu, order);
+            menus.add(Utils.findMenuType(menu, order));
         }
 
-        if (menus.contains(MenuType.BEVERAGE) && menus.size() == 1) {
+        if (menus.contains(MenuType.BEVERAGE) && menus.contains(MenuType.DEFAULT) && menus.size() == 2) {
             ErrorMessage.inputMenuError();
             throw new IllegalArgumentException();
         }
