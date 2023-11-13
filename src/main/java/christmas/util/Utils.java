@@ -2,6 +2,7 @@ package christmas.util;
 
 import christmas.configuration.DiscountType;
 import christmas.configuration.MenuType;
+import christmas.service.ChristmasService;
 import christmas.validation.Validation;
 
 import java.text.DecimalFormat;
@@ -11,11 +12,21 @@ import java.util.List;
 import java.util.Map;
 
 public class Utils {
-
+    private static final String CHRISTMAS_EVENT = "크리스마스 디데이 할인";
+    private static final String WEEKDAY_EVENT = "평일 할인";
+    private static final String WEEKEND_EVENT = "주말 할인";
+    private static final String SPECIAL_EVENT = "특별 할인";
+    private static final String GIVE_WAY_EVENT = "증정 이벤트";
     private static final String COMMAS = ",";
     private static final String DASH = "-";
     private static final int MENU_INDEX = 0;
     private static final int COUNT_INDEX = 1;
+
+    private static ChristmasService christmasService;
+
+    public Utils() {
+        this.christmasService = new ChristmasService();
+    }
 
     public static int stringToInteger(String userInput) {
         Validation.validateEmptyInput(userInput);
@@ -80,5 +91,17 @@ public class Utils {
             }
         }
         return MenuType.DEFAULT;
+    }
+
+    public static Map<String, Integer> makeDiscountMap(int date, Map<String, Integer> order, int totalPrice) {
+        Map<String, Integer> eventDiscounts = new HashMap<>();
+
+        eventDiscounts.put(CHRISTMAS_EVENT, christmasService.totalChristmasDiscount(date));
+        eventDiscounts.put(WEEKDAY_EVENT, christmasService.totalDessertDiscount(date, order));
+        eventDiscounts.put(WEEKEND_EVENT, christmasService.totalMainDiscount(date, order));
+        eventDiscounts.put(GIVE_WAY_EVENT, christmasService.totalGiveWayBenefit(totalPrice));
+        eventDiscounts.put(SPECIAL_EVENT, christmasService.totalSpecialDiscount(date));
+
+        return eventDiscounts;
     }
 }
