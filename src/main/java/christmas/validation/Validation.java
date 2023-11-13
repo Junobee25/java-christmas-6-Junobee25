@@ -63,7 +63,6 @@ public class Validation {
 
         for (String item : selectFoods) {
             if (!item.trim().contains(DASH)) {
-                System.out.println("1");
                 ErrorMessage.inputMenuError();
                 throw new IllegalArgumentException();
             }
@@ -74,7 +73,6 @@ public class Validation {
         for (String item : selectFoods) {
             String[] element = item.split(DASH);
             if (element.length != ELEMENT_LENGTH) {
-                System.out.println(2);
                 ErrorMessage.inputMenuError();
                 throw new IllegalArgumentException();
             }
@@ -86,7 +84,6 @@ public class Validation {
             String[] element = item.split(DASH);
             String menu = element[MENU_INDEX];
             if (!Menu.MENU.getMenuList().contains(menu)) {
-                System.out.println(3);
                 ErrorMessage.inputMenuError();
                 throw new IllegalArgumentException();
             }
@@ -98,7 +95,6 @@ public class Validation {
             String[] element = item.split(DASH);
             validateOrderStringToInteger(element[COUNT_INDEX]);
             if (Integer.parseInt(element[COUNT_INDEX]) > 20 || Integer.parseInt(element[COUNT_INDEX]) <= 0) {
-                System.out.println(4);
                 ErrorMessage.inputMenuError();
                 throw new IllegalArgumentException();
             }
@@ -111,7 +107,6 @@ public class Validation {
         for (String item : selectFood) {
             String[] element = item.split(DASH);
             if (foodOrder.contains(element[MENU_INDEX])) {
-                System.out.println(5);
                 ErrorMessage.inputMenuError();
                 throw new IllegalArgumentException();
             }
