@@ -22,7 +22,7 @@ public class OutputView {
     private final static String ESTIMATED_PAYMENT_AMOUNT_AFTER_DISCOUNT = "<할인 후 예상 결제 금액>";
     private final static String ESTIMATED_PAYMENT_AMOUNT_AFTER_DISCOUNT_DETAIL = "%s원\n\n";
     private final static String DECEMBER_EVENT_BADGE = "<12월 이벤트 배지>";
-    private final static String DECEMBER_EVENT_BADGE_DETAIL = "%s\n";
+    private final static String DECEMBER_EVENT_BADGE_DETAIL = "%s";
     private final static String NONE = "없음";
 
     public static void outputViewWelcome() {
@@ -70,10 +70,10 @@ public class OutputView {
                 System.out.printf(BENEFIT_DETAIL, event.getKey(), Utils.formatPriceToWonType(event.getValue()));
             }
         }
-
         if (eventDiscount.values().stream().allMatch(value -> value == 0)) {
             System.out.println(NONE);
         }
+        System.out.println();
     }
 
     public static void outputViewTotalDiscount(int discount) {
