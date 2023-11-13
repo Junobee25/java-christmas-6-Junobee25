@@ -96,7 +96,7 @@ public class Validation {
     public static void validateElementCount(String[] selectFood) {
         for (String item : selectFood) {
             String[] element = item.split(DASH);
-            Utils.stringOrderToInteger(element[COUNT_INDEX]);
+            validateOrderStringToInteger(element[COUNT_INDEX]);
             if (Integer.parseInt(element[COUNT_INDEX]) > 20 || Integer.parseInt(element[COUNT_INDEX]) <= 0) {
                 System.out.println(4);
                 ErrorMessage.inputMenuError();
