@@ -1,6 +1,7 @@
 package christmas.validation;
 
 import christmas.configuration.Menu;
+import christmas.util.Utils;
 import christmas.view.ErrorMessage;
 
 import java.util.ArrayList;
@@ -13,9 +14,16 @@ public class Validation {
     private static final int COUNT_INDEX = 1;
     private final static int ELEMENT_LENGTH = 2;
 
-    public static void validateEmptyInput(String userInput) {
+    public static void validateDateEmptyInput(String userInput) {
         if (userInput.length() == 0) {
             ErrorMessage.inputDateError();
+            throw new IllegalArgumentException();
+        }
+    }
+
+    public static void validateOrderEmptyInput(String userInput) {
+        if (userInput.length() == 0) {
+            ErrorMessage.inputMenuError();
             throw new IllegalArgumentException();
         }
     }
@@ -27,9 +35,15 @@ public class Validation {
         }
     }
 
-    public static void validateStringToInteger(String userInput) {
+    public static void validateDateStringToInteger(String userInput) {
         if (!userInput.chars().allMatch(Character::isDigit)) {
             ErrorMessage.inputDateError();
+            throw new IllegalArgumentException();
+        }
+    }
+    public static void validateOrderStringToInteger(String userInput) {
+        if (!userInput.chars().allMatch(Character::isDigit)) {
+            ErrorMessage.inputMenuError();
             throw new IllegalArgumentException();
         }
     }
@@ -82,7 +96,7 @@ public class Validation {
     public static void validateElementCount(String[] selectFood) {
         for (String item : selectFood) {
             String[] element = item.split(DASH);
-            validateStringToInteger(element[COUNT_INDEX]);
+            Utils.stringOrderToInteger(element[COUNT_INDEX]);
             if (Integer.parseInt(element[COUNT_INDEX]) > 20 || Integer.parseInt(element[COUNT_INDEX]) <= 0) {
                 System.out.println(4);
                 ErrorMessage.inputMenuError();
