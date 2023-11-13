@@ -76,6 +76,7 @@ public class ChristmasController {
         while (true) {
             try {
                 Order order = new Order(getInputOrder());
+
                 OutputView.outputViewPreviewEvent(date);
                 OutputView.outputViewOrderMenu(order.getOrder());
                 return order.getOrder();
@@ -94,15 +95,6 @@ public class ChristmasController {
     }
 
     private String getBadge(int totalBenefit) {
-        if (totalBenefit >= BadgeType.SANTA.getBenefit()) {
-            return BadgeType.SANTA.getBadge();
-        }
-        if (totalBenefit >= BadgeType.TREE.getBenefit()) {
-            return BadgeType.TREE.getBadge();
-        }
-        if (totalBenefit >= BadgeType.STAR.getBenefit()) {
-            return BadgeType.STAR.getBadge();
-        }
-        return BadgeType.NONE_BADGE.getBadge();
+        return Utils.searchBenefitBadge(totalBenefit);
     }
 }

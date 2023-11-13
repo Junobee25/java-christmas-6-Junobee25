@@ -1,5 +1,6 @@
 package christmas.util;
 
+import christmas.configuration.BadgeType;
 import christmas.configuration.DiscountType;
 import christmas.configuration.MenuType;
 import christmas.service.ChristmasService;
@@ -98,5 +99,18 @@ public class Utils {
         eventDiscounts.put(SPECIAL_EVENT, christmasService.totalSpecialDiscount(date));
 
         return eventDiscounts;
+    }
+
+    public static String searchBenefitBadge(int totalBenefit) {
+        if (totalBenefit >= BadgeType.SANTA.getBenefit()) {
+            return BadgeType.SANTA.getBadge();
+        }
+        if (totalBenefit >= BadgeType.TREE.getBenefit()) {
+            return BadgeType.TREE.getBadge();
+        }
+        if (totalBenefit >= BadgeType.STAR.getBenefit()) {
+            return BadgeType.STAR.getBadge();
+        }
+        return BadgeType.NONE_BADGE.getBadge();
     }
 }
