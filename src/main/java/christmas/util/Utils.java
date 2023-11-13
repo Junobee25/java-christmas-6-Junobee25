@@ -22,12 +22,6 @@ public class Utils {
     private static final int MENU_INDEX = 0;
     private static final int COUNT_INDEX = 1;
 
-    private static ChristmasService christmasService;
-
-    public Utils() {
-        this.christmasService = new ChristmasService();
-    }
-
     public static int stringToInteger(String userInput) {
         Validation.validateEmptyInput(userInput);
         Validation.validateStringToInteger(userInput);
@@ -95,6 +89,7 @@ public class Utils {
 
     public static Map<String, Integer> makeDiscountMap(int date, Map<String, Integer> order, int totalPrice) {
         Map<String, Integer> eventDiscounts = new HashMap<>();
+        ChristmasService christmasService = new ChristmasService();
 
         eventDiscounts.put(CHRISTMAS_EVENT, christmasService.totalChristmasDiscount(date));
         eventDiscounts.put(WEEKDAY_EVENT, christmasService.totalDessertDiscount(date, order));
