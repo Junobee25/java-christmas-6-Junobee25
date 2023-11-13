@@ -20,26 +20,30 @@ public class ChristmasController {
     public void decemberPromotion() {
         int date = inputDate();
         Map<String, Integer> order = inputOrder(date);
-        showResult(date, order);
+        int totalPrice = christmasService.calculateTotalPurchaseAmount(order);
+        showResult(date, order, totalPrice);
     }
 
-    private void showResult(int date, Map<String, Integer> order) {
-        int totalPrice = christmasService.calculateTotalPurchaseAmount(order);
-
+    private void showResult(int date, Map<String, Integer> order, int totalPrice) {
         if (totalPrice >= 10000) {
-            int totalBenefits = christmasService.calculateTotalBenefit(date, order);
-            int totalDiscount = christmasService.calculateTotalDiscount(date, order);
-            OutputView.outputViewOrderAmount(totalPrice);
-            OutputView.outputViewGiveWayMenu(totalPrice);
-            OutputView.outputViewBenefit();
-            OutputView.outputViewBenefitDetail(Utils.makeDiscountMap(date, order, totalPrice));
-            OutputView.outputViewTotalDiscount(totalBenefits);
-            OutputView.outputViewEstimatedPayment(totalPrice - totalDiscount);
-            OutputView.outputViewEventBadge(getBadge(totalBenefits));
+            showEventResult(date, order, totalPrice);
         }
         if (totalPrice < 10000) {
             showNotEventResult(order);
         }
+    }
+
+    private void showEventResult(int date, Map<String, Integer> order, int totalPrice) {
+        int totalBenefits = christmasService.calculateTotalBenefit(date, order);
+        int totalDiscount = christmasService.calculateTotalDiscount(date, order);
+
+        OutputView.outputViewOrderAmount(totalPrice);
+        OutputView.outputViewGiveWayMenu(totalPrice);
+        OutputView.outputViewBenefit();
+        OutputView.outputViewBenefitDetail(Utils.makeDiscountMap(date, order, totalPrice));
+        OutputView.outputViewTotalDiscount(totalBenefits);
+        OutputView.outputViewEstimatedPayment(totalPrice - totalDiscount);
+        OutputView.outputViewEventBadge(getBadge(totalBenefits));
     }
 
     private void showNotEventResult(Map<String, Integer> order) {
@@ -62,7 +66,6 @@ public class ChristmasController {
                 Date date = new Date(getInputDate());
                 return date.getDate();
             } catch (IllegalArgumentException e) {
-
             }
         }
     }
