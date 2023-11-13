@@ -62,9 +62,15 @@ public class OutputView {
         System.out.println(BENEFIT);
     }
 
-    public static void outputViewBenefitDetail(String event, int discount) {
-        if (discount != 0) {
-            System.out.printf(BENEFIT_DETAIL, event, Utils.formatPriceToWonType(discount));
+    public static void outputViewBenefitDetail(Map<String, Integer> eventDiscount) {
+        for (Map.Entry<String, Integer> event : eventDiscount.entrySet()) {
+            if (event.getValue() != 0) {
+                System.out.printf(BENEFIT_DETAIL, event.getKey(), Utils.formatPriceToWonType(event.getValue()));
+            }
+        }
+
+        if (eventDiscount.values().stream().allMatch(value -> value == 0)) {
+            System.out.println(NONE);
         }
     }
 
@@ -75,7 +81,7 @@ public class OutputView {
 
     public static void outputViewEstimatedPayment(int totalPrice) {
         System.out.println(ESTIMATED_PAYMENT_AMOUNT_AFTER_DISCOUNT);
-        System.out.printf(ESTIMATED_PAYMENT_AMOUNT_AFTER_DISCOUNT_DETAIL,  Utils.formatPriceToWonType(totalPrice));
+        System.out.printf(ESTIMATED_PAYMENT_AMOUNT_AFTER_DISCOUNT_DETAIL, Utils.formatPriceToWonType(totalPrice));
     }
 
     public static void outputViewEventBadge(String badge) {
