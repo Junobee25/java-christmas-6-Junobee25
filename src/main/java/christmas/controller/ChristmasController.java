@@ -21,20 +21,36 @@ public class ChristmasController {
         int date = inputDate();
         Map<String, Integer> order = inputOrder(date);
         showResult(date, order);
-
     }
 
     private void showResult(int date, Map<String, Integer> order) {
         int totalPrice = christmasService.calculateTotalPurchaseAmount(order);
-        int totalBenefits = christmasService.calculateTotalBenefit(date, order);
-        int totalDiscount = christmasService.calculateTotalDiscount(date, order);
+
+        if (totalPrice >= 10000) {
+            int totalBenefits = christmasService.calculateTotalBenefit(date, order);
+            int totalDiscount = christmasService.calculateTotalDiscount(date, order);
+            OutputView.outputViewOrderAmount(totalPrice);
+            OutputView.outputViewGiveWayMenu(totalPrice);
+            OutputView.outputViewBenefit();
+            OutputView.outputViewBenefitDetail(Utils.makeDiscountMap(date, order, totalPrice));
+            OutputView.outputViewTotalDiscount(totalBenefits);
+            OutputView.outputViewEstimatedPayment(totalPrice - totalDiscount);
+            OutputView.outputViewEventBadge(getBadge(totalBenefits));
+        }
+        if (totalPrice < 10000) {
+            showNotEventResult(order);
+        }
+    }
+
+    private void showNotEventResult(Map<String, Integer> order) {
+        int totalPrice = christmasService.calculateTotalPurchaseAmount(order);
+
         OutputView.outputViewOrderAmount(totalPrice);
         OutputView.outputViewGiveWayMenu(totalPrice);
-        OutputView.outputViewBenefit();
-        OutputView.outputViewBenefitDetail(Utils.makeDiscountMap(date, order, totalPrice));
-        OutputView.outputViewTotalDiscount(totalBenefits);
-        OutputView.outputViewEstimatedPayment(totalPrice - totalDiscount);
-        OutputView.outputViewEventBadge(getBadge(totalBenefits));
+        OutputView.outputViewNotBenefit();
+        OutputView.outputViewNotDiscountBenefit();
+        OutputView.outputViewEstimatedPayment(totalPrice);
+        OutputView.outputViewNotBadge();
     }
 
     private int inputDate() {
