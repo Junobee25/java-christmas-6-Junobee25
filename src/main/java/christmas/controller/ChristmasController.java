@@ -11,11 +11,6 @@ import christmas.view.OutputView;
 import java.util.Map;
 
 public class ChristmasController {
-    private static final String CHRISTMAS_EVENT = "크리스마스 디데이 할인";
-    private static final String WEEKDAY_EVENT = "평일 할인";
-    private static final String WEEKEND_EVENT = "주말 할인";
-    private static final String SPECIAL_EVENT = "특별 할인";
-    private static final String GIVE_WAY_EVENT = "증정 이벤트";
     private final ChristmasService christmasService;
 
     public ChristmasController() {
@@ -36,11 +31,7 @@ public class ChristmasController {
         OutputView.outputViewOrderAmount(totalPrice);
         OutputView.outputViewGiveWayMenu(totalPrice);
         OutputView.outputViewBenefit();
-        OutputView.outputViewBenefitDetail(CHRISTMAS_EVENT, christmasService.totalChristmasDiscount(date));
-        OutputView.outputViewBenefitDetail(WEEKDAY_EVENT, christmasService.totalDessertDiscount(date, order));
-        OutputView.outputViewBenefitDetail(WEEKEND_EVENT, christmasService.totalMainDiscount(date, order));
-        OutputView.outputViewBenefitDetail(GIVE_WAY_EVENT, christmasService.totalGiveWayBenefit(totalPrice));
-        OutputView.outputViewBenefitDetail(SPECIAL_EVENT, christmasService.totalSpecialDiscount(date));
+        OutputView.outputViewBenefitDetail(Utils.makeDiscountMap(date, order, totalPrice));
         OutputView.outputViewTotalDiscount(totalBenefits);
         OutputView.outputViewEstimatedPayment(totalPrice - totalDiscount);
         OutputView.outputViewEventBadge(getBadge(totalBenefits));
