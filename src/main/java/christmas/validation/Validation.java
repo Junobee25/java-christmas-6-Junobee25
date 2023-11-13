@@ -40,6 +40,7 @@ public class Validation {
             throw new IllegalArgumentException();
         }
     }
+
     public static void validateOrderStringToInteger(String userInput) {
         if (!userInput.chars().allMatch(Character::isDigit)) {
             ErrorMessage.inputMenuError();
@@ -109,7 +110,7 @@ public class Validation {
 
         for (String item : selectFood) {
             String[] element = item.split(DASH);
-            if (foodOrder.contains(element[MENU_INDEX])){
+            if (foodOrder.contains(element[MENU_INDEX])) {
                 System.out.println(5);
                 ErrorMessage.inputMenuError();
                 throw new IllegalArgumentException();
