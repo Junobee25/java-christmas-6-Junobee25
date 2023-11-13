@@ -21,6 +21,7 @@ public class ChristmasController {
         int date = inputDate();
         Map<String, Integer> order = inputOrder(date);
         int totalPrice = christmasService.calculateTotalPurchaseAmount(order);
+
         showResult(date, order, totalPrice);
     }
 
@@ -87,7 +88,7 @@ public class ChristmasController {
 
     private int getInputDate() {
         String userInput = InputView.input().trim();
-        return Utils.stringToInteger(userInput);
+        return Utils.stringDateToInteger(userInput);
     }
 
     private Map<String, Integer> getInputOrder() {
