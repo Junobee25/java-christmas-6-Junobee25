@@ -23,10 +23,17 @@ public class Utils {
     private static final int MENU_INDEX = 0;
     private static final int COUNT_INDEX = 1;
 
-    public static int stringToInteger(String userInput) {
-        Validation.validateEmptyInput(userInput);
-        Validation.validateStringToInteger(userInput);
+    public static int stringDateToInteger(String userInput) {
+        Validation.validateDateEmptyInput(userInput);
+        Validation.validateDateStringToInteger(userInput);
         Validation.validateRangeDate(userInput);
+
+        return Integer.parseInt(userInput);
+    }
+
+    public static int stringOrderToInteger(String userInput) {
+        Validation.validateOrderEmptyInput(userInput);
+        Validation.validateOrderStringToInteger(userInput);
 
         return Integer.parseInt(userInput);
     }
@@ -48,7 +55,7 @@ public class Utils {
     }
 
     private static String[] stringToArray(String userInput) {
-        Validation.validateEmptyInput(userInput);
+        Validation.validateOrderEmptyInput(userInput);
         Validation.validateInputString(userInput);
         // validation
         return userInput.split(COMMAS);
