@@ -174,7 +174,7 @@ public class ChristmasService {
         int dessertDiscount = 0;
         for (DessertType dessertType : DessertType.values()) {
             if (menuType.getKey().contains(dessertType.getMenuName())) {
-                dessertDiscount += DiscountType.WEEKDAY.calculate(dessertType.getPrice());
+                dessertDiscount += (dessertType.getPrice() - DiscountType.WEEKDAY.calculate(dessertType.getPrice())) * menuType.getValue();
             }
         }
         return dessertDiscount;
@@ -186,7 +186,7 @@ public class ChristmasService {
         int mainDiscount = 0;
         for (MainType mainType : MainType.values()) {
             if (menuType.getKey().contains(mainType.getMenuName())) {
-                mainDiscount += mainType.getPrice() - DiscountType.WEEKEND.calculate(mainType.getPrice());
+                mainDiscount += (mainType.getPrice() - DiscountType.WEEKEND.calculate(mainType.getPrice())) * menuType.getValue();
             }
         }
         return mainDiscount;
