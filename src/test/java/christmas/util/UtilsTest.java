@@ -1,5 +1,6 @@
 package christmas.util;
 
+import jdk.jshell.execution.Util;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -41,5 +42,19 @@ class UtilsTest {
         assertEquals(1, myMap.get("타파스"));
     }
 
+    @DisplayName("금액을 원화 형태로 변환 테스트")
+    @Test
+    void formatPriceToWonType() {
+        //given
+        int case1 = 1234567;
+        int case2 = 1000000000;
 
+        //when
+        String result1 = Utils.formatPriceToWonType(case1);
+        String result2 = Utils.formatPriceToWonType(case2);
+
+        //then
+        assertEquals("1,234,567",result1);
+        assertEquals("1,000,000,000", result2);
+    }
 }
