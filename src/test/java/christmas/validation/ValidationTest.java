@@ -168,8 +168,16 @@ class ValidationTest {
         });
     }
 
+    @DisplayName("없는 메뉴를 주문하면 예외가 발생한다.")
     @Test
     void validateElementFood() {
+        //given
+        String[] case1 = {"라면-1"};
+
+        //when & then
+        assertThrows(IllegalArgumentException.class, () -> {
+            Validation.validateElementFood(case1);
+        });
     }
 
     @Test
