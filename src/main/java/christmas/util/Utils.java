@@ -26,7 +26,7 @@ public class Utils {
     public static int stringDateToInteger(String userInput) {
         Validation.validateDateEmptyInput(userInput);
         Validation.validateDateStringToInteger(userInput);
-        Validation.validateRangeDate(userInput);
+        Validation.validateRangeDate(Integer.parseInt(userInput));
 
         return Integer.parseInt(userInput);
     }
