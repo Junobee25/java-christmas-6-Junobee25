@@ -145,4 +145,32 @@ class UtilsTest {
         assertEquals(result.get(SPECIAL_EVENT), 1000);
         assertEquals(result.get(GIVE_WAY_EVENT), 25000);
     }
+
+    @DisplayName("받을 수 있는 뱃지 테스트")
+    @Test
+    void searchBenefitBadge() {
+        //given
+        int case1 = 20000;
+        int case2 = 15000;
+        int case3 = 10000;
+        int case4 = 5000;
+        int case5 = 2500;
+        int case6 = 0;
+
+        //when
+        String result1 = Utils.searchBenefitBadge(case1);
+        String result2 = Utils.searchBenefitBadge(case2);
+        String result3 = Utils.searchBenefitBadge(case3);
+        String result4 = Utils.searchBenefitBadge(case4);
+        String result5 = Utils.searchBenefitBadge(case5);
+        String result6 = Utils.searchBenefitBadge(case6);
+
+        //then
+        assertEquals(result1, "산타");
+        assertEquals(result2, "트리");
+        assertEquals(result3, "트리");
+        assertEquals(result4, "별");
+        assertEquals(result5, "없음");
+        assertEquals(result6, "없음");
+    }
 }
