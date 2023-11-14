@@ -19,7 +19,7 @@ public class Order {
         HashSet<MenuType> menus = new HashSet<>();
 
         for (MenuType menu : MenuType.values()) {
-            menus.add(Utils.findMenuType(menu, order));
+            menus = Utils.findMenuType(menu, order);
         }
 
         if (menus.contains(MenuType.BEVERAGE) && menus.contains(MenuType.DEFAULT) && menus.size() == 2) {

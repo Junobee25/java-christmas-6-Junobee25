@@ -7,10 +7,7 @@ import christmas.service.ChristmasService;
 import christmas.validation.Validation;
 
 import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Utils {
     private static final String CHRISTMAS_EVENT = "크리스마스 디데이 할인";
@@ -78,13 +75,14 @@ public class Utils {
         return discountTypes;
     }
 
-    public static MenuType findMenuType(MenuType menuType, Map<String, Integer> order) {
+    public static HashSet<MenuType> findMenuType(MenuType menuType, Map<String, Integer> order) {
+        HashSet<MenuType> menus = new HashSet<>();
         for (Map.Entry<String, Integer> menu : order.entrySet()) {
             if (menuType.getMenuList().contains(menu.getKey())) {
-                return menuType;
+                    menus.add(menuType);
             }
         }
-        return MenuType.DEFAULT;
+        return menus;
     }
 
     public static Map<String, Integer> makeDiscountMap(int date, Map<String, Integer> order, int totalPrice) {
