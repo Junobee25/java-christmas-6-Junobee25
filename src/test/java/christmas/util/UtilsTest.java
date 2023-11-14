@@ -10,6 +10,11 @@ import java.util.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 class UtilsTest {
+    private static final String CHRISTMAS_EVENT = "크리스마스 디데이 할인";
+    private static final String WEEKDAY_EVENT = "평일 할인";
+    private static final String WEEKEND_EVENT = "주말 할인";
+    private static final String SPECIAL_EVENT = "특별 할인";
+    private static final String GIVE_WAY_EVENT = "증정 이벤트";
 
     @DisplayName("입력받은 날짜 숫자 타입으로 변환 테스트")
     @Test
@@ -120,6 +125,24 @@ class UtilsTest {
         assertEquals(result1.contains(MenuType.APPETIZER), true);
         assertEquals(result2.contains(MenuType.MAIN), true);
         assertEquals(result3.contains(MenuType.BEVERAGE), true);
+    }
 
+    @DisplayName("해당되는 이벤트에 받는 혜택 금액 반환 테스트")
+    @Test
+    void makeDiscountMap() {
+        //given
+        String userInput = "티본스테이크-1,바비큐립-1,초코케이크-2,제로콜라-1";
+        Map<String, Integer> order = Utils.stringToMap(userInput);
+        int date = 3;
+        int price = 142000;
+
+        //when
+        Map<String, Integer> result = Utils.makeDiscountMap(date, order, price);
+
+        //then
+        assertEquals(result.get(CHRISTMAS_EVENT), 1200);
+        assertEquals(result.get(WEEKDAY_EVENT), 4046);
+        assertEquals(result.get(SPECIAL_EVENT), 1000);
+        assertEquals(result.get(GIVE_WAY_EVENT), 25000);
     }
 }
