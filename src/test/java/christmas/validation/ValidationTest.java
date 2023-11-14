@@ -21,8 +21,16 @@ class ValidationTest {
 
     }
 
+    @DisplayName("주문 입력하지 않으면 예외가 발생한다.")
     @Test
     void validateOrderEmptyInput() {
+        //given
+        String userInput = "";
+
+        //then
+        assertThrows(IllegalArgumentException.class, () -> {
+            Validation.validateOrderEmptyInput(userInput);
+        });
     }
 
     @Test
