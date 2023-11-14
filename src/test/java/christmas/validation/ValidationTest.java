@@ -71,11 +71,33 @@ class ValidationTest {
         assertThrows(IllegalArgumentException.class, () -> {
             Validation.validateDateStringToInteger(case4);
         });
-
     }
 
+    @DisplayName("메뉴 수량으로 숫자가 아닌 값을 입력하면 예외가 발생한다.")
     @Test
     void validateOrderStringToInteger() {
+        //given
+        String case1 = " ";
+        String case2 = "a";
+        String case3 = "a1";
+        String case4 = "1 2";
+
+        //when & then
+        assertThrows(IllegalArgumentException.class, () -> {
+            Validation.validateDateStringToInteger(case1);
+        });
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            Validation.validateDateStringToInteger(case2);
+        });
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            Validation.validateDateStringToInteger(case3);
+        });
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            Validation.validateDateStringToInteger(case4);
+        });
     }
 
     @Test
