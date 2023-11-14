@@ -31,14 +31,6 @@ public class Utils {
         return Integer.parseInt(userInput);
     }
 
-    public static int stringOrderToInteger(String userInput) {
-        Validation.validateOrderEmptyInput(userInput);
-        Validation.validateOrderStringToInteger(userInput);
-
-        return Integer.parseInt(userInput);
-    }
-
-
     public static Map<String, Integer> stringToMap(String userInput) {
         String[] selectFoods = stringToArray(userInput);
         Map<String, Integer> order = new HashMap<>();
