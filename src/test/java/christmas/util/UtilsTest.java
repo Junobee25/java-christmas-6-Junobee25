@@ -1,15 +1,11 @@
 package christmas.util;
 
 import christmas.configuration.DiscountType;
-import jdk.jshell.execution.Util;
-import org.junit.jupiter.api.Assertions;
+import christmas.configuration.MenuType;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -94,12 +90,36 @@ class UtilsTest {
 
         //when
         List<DiscountType> result1 = Utils.findDiscountType(case1);
-        List<DiscountType> result2= Utils.findDiscountType(case2);
-        List<DiscountType> result3= Utils.findDiscountType(case3);
+        List<DiscountType> result2 = Utils.findDiscountType(case2);
+        List<DiscountType> result3 = Utils.findDiscountType(case3);
 
         //then
         assertEquals(result1, Arrays.asList(DiscountType.WEEKEND, DiscountType.CHRISTMAS));
         assertEquals(result2, Arrays.asList(DiscountType.WEEKDAY, DiscountType.CHRISTMAS));
         assertEquals(result3, Arrays.asList(DiscountType.WEEKDAY, DiscountType.CHRISTMAS, DiscountType.SPECIAL));
+    }
+
+    @DisplayName("해당 음식의 메뉴 타입을 반환 테스트")
+    @Test
+    void findMenuType() {
+        //given
+        String userInput1 = "양송이수프-1,타파스-1";
+        String userInput2 = "양송이수프-1,티본스테이크-10";
+        String userInput3 = "제로콜라-5,레드와인-7";
+
+        Map<String, Integer> case1 = Utils.stringToMap(userInput1);
+        Map<String, Integer> case2 = Utils.stringToMap(userInput2);
+        Map<String, Integer> case3 = Utils.stringToMap(userInput3);
+
+        //when
+        HashSet<MenuType> result1 = Utils.findMenuType(MenuType.APPETIZER, case1);
+        HashSet<MenuType> result2 = Utils.findMenuType(MenuType.MAIN, case2);
+        HashSet<MenuType> result3 = Utils.findMenuType(MenuType.BEVERAGE, case3);
+
+        //then
+        assertEquals(result1.contains(MenuType.APPETIZER), true);
+        assertEquals(result2.contains(MenuType.MAIN), true);
+        assertEquals(result3.contains(MenuType.BEVERAGE), true);
+
     }
 }
