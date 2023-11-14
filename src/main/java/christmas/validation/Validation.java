@@ -92,10 +92,6 @@ public class Validation {
         for (String item : selectFood) {
             String[] element = item.split(DASH);
             validateOrderStringToInteger(element[COUNT_INDEX]);
-            if (Integer.parseInt(element[COUNT_INDEX]) > 20 || Integer.parseInt(element[COUNT_INDEX]) <= 0) {
-                ErrorMessage.inputMenuError();
-                throw new IllegalArgumentException();
-            }
         }
     }
 
