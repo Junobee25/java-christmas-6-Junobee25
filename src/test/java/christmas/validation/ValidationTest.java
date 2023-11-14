@@ -33,22 +33,45 @@ class ValidationTest {
         });
     }
 
-    @DisplayName("쉼표 입력에 대한 예외 처리")
+    @DisplayName("쉼표 하나 입력시 예외가 발생한다.")
     @Test
     void validateEmptyArray() {
         //given
         String userInput = ",";
         String[] splitUserInput = userInput.split(",");
 
-        //then
+        //when & then
         assertThrows(IllegalArgumentException.class, () -> {
             Validation.validateEmptyArray(splitUserInput);
         });
     }
 
-
+    @DisplayName("날짜로 숫자가 아닌 값을 입력하면 예외가 발생한다.")
     @Test
     void validateDateStringToInteger() {
+        //given
+        String case1 = " ";
+        String case2 = "a";
+        String case3 = "a1";
+        String case4 = "1 2";
+
+        //when & then
+        assertThrows(IllegalArgumentException.class, () -> {
+            Validation.validateDateStringToInteger(case1);
+        });
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            Validation.validateDateStringToInteger(case2);
+        });
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            Validation.validateDateStringToInteger(case3);
+        });
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            Validation.validateDateStringToInteger(case4);
+        });
+
     }
 
     @Test
