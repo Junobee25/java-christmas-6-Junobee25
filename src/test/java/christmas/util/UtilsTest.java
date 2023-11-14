@@ -1,11 +1,14 @@
 package christmas.util;
 
+import christmas.configuration.DiscountType;
 import jdk.jshell.execution.Util;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -79,6 +82,24 @@ class UtilsTest {
         assertEquals(result1, 2);
         assertEquals(result2, 11);
         assertEquals(result3, 12);
+    }
 
+    @DisplayName("입력 날짜에 대해서 받는 혜텍들 반환 테스트")
+    @Test
+    void findDiscountType() {
+        //given
+        int case1 = 1;
+        int case2 = 4;
+        int case3 = 25;
+
+        //when
+        List<DiscountType> result1 = Utils.findDiscountType(case1);
+        List<DiscountType> result2= Utils.findDiscountType(case2);
+        List<DiscountType> result3= Utils.findDiscountType(case3);
+
+        //then
+        assertEquals(result1, Arrays.asList(DiscountType.WEEKEND, DiscountType.CHRISTMAS));
+        assertEquals(result2, Arrays.asList(DiscountType.WEEKDAY, DiscountType.CHRISTMAS));
+        assertEquals(result3, Arrays.asList(DiscountType.WEEKDAY, DiscountType.CHRISTMAS, DiscountType.SPECIAL));
     }
 }
