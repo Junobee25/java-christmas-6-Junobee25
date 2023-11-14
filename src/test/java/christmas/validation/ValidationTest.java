@@ -100,8 +100,26 @@ class ValidationTest {
         });
     }
 
+    @DisplayName("날짜로 1 보다 작거나 31 보다 큰 숫자를 입력하면 예외가 발생한다.")
     @Test
     void validateRangeDate() {
+        //given
+        int case1 = -1;
+        int case2 = 0;
+        int case3 = 32;
+
+        //when & then
+        assertThrows(IllegalArgumentException.class, () -> {
+            Validation.validateRangeDate(case1);
+        });
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            Validation.validateRangeDate(case2);
+        });
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            Validation.validateRangeDate(case3);
+        });
     }
 
     @Test
