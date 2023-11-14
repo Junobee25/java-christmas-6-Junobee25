@@ -122,8 +122,28 @@ class ValidationTest {
         });
     }
 
+    @DisplayName("쉼표로 분리된 메뉴-개수 문자열이 -를 포함하지 않으면 예외가 발생한다.")
     @Test
     void validateInputString() {
+        //given
+        String case1 = "양송이수프,1,타파스-1";
+        String case2 = "양송이수프,타파스";
+        String case3 = "양송이수프-,타파스 ";
+        String case4 = "양송이수프-,,-";
+
+        //when & then
+        assertThrows(IllegalArgumentException.class, () -> {
+            Validation.validateInputString(case1);
+        });
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            Validation.validateInputString(case2);
+        });
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            Validation.validateInputString(case3);
+        });
+
     }
 
     @Test
