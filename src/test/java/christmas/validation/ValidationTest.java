@@ -150,9 +150,9 @@ class ValidationTest {
     @Test
     void validateFoodArrayElement() {
         //given
-        String[] case1 = {"양송이수프-2","양송이수프-"};
-        String[] case2 = {"양송이수프-2","양송이수프"};
-        String[] case3 = {"양송이수프-2","양송이수프---"};
+        String[] case1 = {"양송이수프-2", "양송이수프-"};
+        String[] case2 = {"양송이수프-2", "양송이수프"};
+        String[] case3 = {"양송이수프-2", "양송이수프---"};
 
         //when & then
         assertThrows(IllegalArgumentException.class, () -> {
@@ -207,7 +207,30 @@ class ValidationTest {
         });
     }
 
+    @DisplayName("중복된 메뉴를 입력하면 예외가 발생한다.")
     @Test
     void validateDuplicationElementFood() {
+        //given
+        String[] case1 = {"양송이수프-1","양송이수프-2"};
+        String[] case2 = {"티본스테이크-1","티본스테이크-2"};
+        String[] case3 = {"초코케이크-1","초코케이크-2"};
+        String[] case4 = {"제로콜라-1","제로콜라-2"};
+
+        //when & then
+        assertThrows(IllegalArgumentException.class, () -> {
+            Validation.validateDuplicationElementFood(case1);
+        });
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            Validation.validateDuplicationElementFood(case2);
+        });
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            Validation.validateDuplicationElementFood(case3);
+        });
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            Validation.validateDuplicationElementFood(case4);
+        });
     }
 }
