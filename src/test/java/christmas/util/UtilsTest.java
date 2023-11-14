@@ -54,7 +54,31 @@ class UtilsTest {
         String result2 = Utils.formatPriceToWonType(case2);
 
         //then
-        assertEquals("1,234,567",result1);
+        assertEquals("1,234,567", result1);
         assertEquals("1,000,000,000", result2);
+    }
+
+    @DisplayName("구매한 메뉴 개수 테스트")
+    @Test
+    void countPurchaseAmount() {
+        //given
+        String userInput1 = "양송이수프-1,타파스-1";
+        String userInput2 = "양송이수프-1,타파스-10";
+        String userInput3 = "양송이수프-5,타파스-7";
+
+        Map<String, Integer> case1 = Utils.stringToMap(userInput1);
+        Map<String, Integer> case2 = Utils.stringToMap(userInput2);
+        Map<String, Integer> case3 = Utils.stringToMap(userInput3);
+
+        //when
+        int result1 = Utils.countPurchaseAmount(case1);
+        int result2 = Utils.countPurchaseAmount(case2);
+        int result3 = Utils.countPurchaseAmount(case3);
+
+        //then
+        assertEquals(result1, 2);
+        assertEquals(result2, 11);
+        assertEquals(result3, 12);
+
     }
 }
