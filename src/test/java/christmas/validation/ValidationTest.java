@@ -180,8 +180,31 @@ class ValidationTest {
         });
     }
 
+    @DisplayName("메뉴 수량으로 숫자가 아닌 값을 입력하면 예외가 발생한다.")
     @Test
     void validateElementCount() {
+        //given
+        String[] case1 = {"양송이수프-ㅁ"};
+        String[] case2 = {"양송이수프-a"};
+        String[] case3 = {"양송이수프-t"};
+        String[] case4 = {"양송이수프- "};
+
+        //when & then
+        assertThrows(IllegalArgumentException.class, () -> {
+            Validation.validateElementCount(case1);
+        });
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            Validation.validateElementCount(case2);
+        });
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            Validation.validateElementCount(case3);
+        });
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            Validation.validateElementCount(case4);
+        });
     }
 
     @Test
