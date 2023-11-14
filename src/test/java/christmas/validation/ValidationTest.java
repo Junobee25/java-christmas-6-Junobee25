@@ -33,9 +33,19 @@ class ValidationTest {
         });
     }
 
+    @DisplayName("쉼표 입력에 대한 예외 처리")
     @Test
     void validateEmptyArray() {
+        //given
+        String userInput = ",";
+        String[] splitUserInput = userInput.split(",");
+
+        //then
+        assertThrows(IllegalArgumentException.class, () -> {
+            Validation.validateEmptyArray(splitUserInput);
+        });
     }
+
 
     @Test
     void validateDateStringToInteger() {
