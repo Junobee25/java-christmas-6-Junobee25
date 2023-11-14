@@ -146,8 +146,26 @@ class ValidationTest {
 
     }
 
+    @DisplayName("주문 문자열이 - 기준으로 2개의 요소로 나눠지지 않으면 예외가 발생한다.")
     @Test
     void validateFoodArrayElement() {
+        //given
+        String[] case1 = {"양송이수프-2","양송이수프-"};
+        String[] case2 = {"양송이수프-2","양송이수프"};
+        String[] case3 = {"양송이수프-2","양송이수프---"};
+
+        //when & then
+        assertThrows(IllegalArgumentException.class, () -> {
+            Validation.validateFoodArrayElement(case1);
+        });
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            Validation.validateFoodArrayElement(case2);
+        });
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            Validation.validateFoodArrayElement(case3);
+        });
     }
 
     @Test
